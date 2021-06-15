@@ -1,0 +1,21 @@
+1º) `expo init <project_name>` where project_name=rentx
+
+2º) Inside project directory, `expo start`
+
+3º) To install styled-components: `yarn add styled-components`
+		and it's types: `yarn add -D @types/styled-components-react-native`
+
+4º) To install expo-fonts: `expo install expo-font @expo-google-fonts/<name_of_font_1> @expo-google-fonts/<name_of_font_2>`
+		where name_of_font_1=inter and name_of_font_2=archivo
+
+5º) To have global style we need to have it typed so it can be recognized by Typescript:
+		create src/styles/{theme.ts && styles.d.ts}
+
+6º) To handle svg: `expo install react-native-svg`
+		and to have them be their own component: `yarn add -D react-native-svg-transformer` (for that to work
+		we need to go to 'metro.config.js' and put the necessary stuff there).
+		For the assets to be recognized, we create src/@types/svg/index.d.ts
+
+7º) To have responsive font-size: `yarn add react-native-responsive-fontsize`
+
+8º) To handle iphone top chin: `yarn add react-native-iphone-x-helper`
