@@ -19,3 +19,13 @@
 7º) To have responsive font-size: `yarn add react-native-responsive-fontsize`
 
 8º) To handle iphone top chin: `yarn add react-native-iphone-x-helper`
+
+9º) To have stack navigation: `yarn add @react-navigation/native`, then:
+		`expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view`, then:
+		`yarn add @react-navigation/stack` and `yarn add @react-navigation/bottom-tabs`
+
+10º) To have login form validation: `yarn add yup`
+
+11º) To have forms quick and easy: `yarn add react-hook-form`
+
+12º) To have google sign in: I tried following the docs

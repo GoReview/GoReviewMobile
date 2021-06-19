@@ -2,8 +2,9 @@ export default {
 	colors: {
 		header: "#1b1b1f",
 
-		background_primary: "#f4f5f6",
+		background_primary: "#fff",
 		background_secondary: "#fff",
+		threeDotsColor: "#fff",
 
 		text: "#7a7a80",
 		text_detail: "#aeaeb3",
@@ -18,6 +19,9 @@ export default {
 
 		shape: "#e1e1e8",
 		shape_dark: "#29292e",
+
+		google_button: "#4484e8",
+		email_button: "#e0d3d378",
 	},
 
 	fonts: {

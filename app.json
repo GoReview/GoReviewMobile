@@ -4,9 +4,13 @@
   "expo": {
     "name": "goreview",
     "slug": "goreview",
+    "scheme": "exposchemegoreview",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
     ]
+  },
+  "android": {
+    "package": "com.goreview"
   }
 }
