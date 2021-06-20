@@ -3,9 +3,9 @@ import { StatusBar } from "react-native";
 import { useTheme } from "styled-components";
 
 import { ChallengeList } from "../../components/ChallengeList";
-import { Container } from "./styles";
-
 import { debugData } from "../ChallengesToBeDone";
+
+import { Container } from "./styles";
 
 export function ChallengesToCorrect() {
 	const theme = useTheme();
@@ -15,8 +15,8 @@ export function ChallengesToCorrect() {
 	return (
 		<Container>
 			<StatusBar
-				barStyle="dark-content"
 				backgroundColor={theme.colors.background_primary}
+				barStyle="dark-content"
 			/>
 
 			<ChallengeList data={challengesToCorrect} />

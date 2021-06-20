@@ -9,8 +9,8 @@ export function ThreeDotsOptionButton({ ...rest }: Props) {
 	return (
 		<OuterContainer>
 			<BorderlessButton
-				{...rest}
 				style={{ width: "200%", alignContent: "center", alignItems: "center" }}
+				{...rest}
 			>
 				<InnerContainer>
 					<Dot marginBottom={3} />

@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { Fontisto } from '@expo/vector-icons';
+import { Fontisto } from "@expo/vector-icons";
 import { RFValue } from "react-native-responsive-fontsize";
 
 export const Container = styled.View`
@@ -9,11 +9,17 @@ export const Container = styled.View`
 `;
 
 export const Header = styled.View`
+	margin-top: 60px;
+
+	flex-direction: column;
+
 	align-items: center;
 	justify-content: center;
 `;
 
-export const Footer = styled.View``;
+export const Footer = styled.View`
+	margin-top: 70px;
+`;
 
 export const SignInTitle = styled.Text`
 	font-family: ${({ theme }) => theme.fonts.primary_400};
@@ -57,8 +63,8 @@ export const Anim_2 = styled.View`
 export const Anim_3 = styled.View`
 	position: absolute;
 
-	top: 380px;
-	left: 250px;
+	top: 410px;
+	left: 280px;
 `;
 
 export const Anim_4 = styled.View`
@@ -73,3 +79,8 @@ export const Icon = styled(Fontisto)`
 	color: ${({ theme }) => theme.colors.text};
 `;
 
+export const CompanyName = styled.Text`
+	font-family: ${({ theme }) => theme.fonts.primary_500};
+`;
+
+export const CompanyDescription = styled.Text``;

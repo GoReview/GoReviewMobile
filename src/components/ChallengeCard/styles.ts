@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
+import { RectButton } from "react-native-gesture-handler";
 import { BlurView } from "expo-blur";
 import { RFValue } from "react-native-responsive-fontsize";
-import { RectButton } from "react-native-gesture-handler";
 
 export const Container = styled.View``;
 

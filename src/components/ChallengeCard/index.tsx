@@ -4,23 +4,23 @@ import { TouchableOpacityProps } from "react-native";
 import { Container, Title } from "../ClassCard/styles";
 
 import {
+	FooterContainer,
+	FooterWrapper,
 	Description,
 	ClassTitle,
-	Header,
 	Footer,
-	FooterWrapper,
+	Header,
 	Dates,
-	FooterContainer,
 } from "./styles";
 
 export interface ChallengeProps {
-	id: string;
-	title: string;
-	description: string;
-	classId: string;
-	classTitle: string;
 	creationDate: string;
 	deliverDate: string;
+	description: string;
+	classTitle: string;
+	classId: string;
+	title: string;
+	id: string;
 }
 
 interface Props extends TouchableOpacityProps {

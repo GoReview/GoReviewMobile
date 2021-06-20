@@ -10,9 +10,9 @@ export function BlobAnimation_1() {
 	return (
 		<LottieView
 			source={BlobAnimationJSON_1}
-			autoPlay
 			style={{ height: 300 }}
 			resizeMode="contain"
+			autoPlay
 			loop
 		/>
 	);
@@ -22,9 +22,9 @@ export function BlobAnimation_2() {
 	return (
 		<LottieView
 			source={BlobAnimationJSON_2}
-			autoPlay
 			style={{ height: 150 }}
 			resizeMode="contain"
+			autoPlay
 			loop
 		/>
 	);
@@ -34,9 +34,9 @@ export function BlobAnimation_3() {
 	return (
 		<LottieView
 			source={BlobAnimationJSON_3}
-			autoPlay
 			style={{ height: 150 }}
 			resizeMode="contain"
+			autoPlay
 			loop
 		/>
 	);
@@ -46,9 +46,9 @@ export function BlobAnimation_4() {
 	return (
 		<LottieView
 			source={BlobAnimationJSON_4}
-			autoPlay
 			style={{ height: 150 }}
 			resizeMode="contain"
+			autoPlay
 			loop
 		/>
 	);

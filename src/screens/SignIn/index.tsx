@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { StatusBar, Alert, ActivityIndicator } from "react-native";
+import { StatusBar, Alert, ActivityIndicator, Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "styled-components";
 import { RFValue } from "react-native-responsive-fontsize";
 
 import { SingInSocialButton } from "../../components/SignInSocialButton";
-import { GoReviewAPI } from "../../api";
 import { useAuth } from "../../hooks/auth";
 
 import { BlobAnimation_1 } from "../../components/BlobAnimation";
@@ -17,12 +17,14 @@ import SignInSvg from "../../assets/icons/svgs/signIn.svg";
 import EmailSvg from "../../assets/icons/svgs/email.svg";
 
 import {
+	AnimationContainer,
+	CompanyDescription,
+	FooterWrapper,
+	CompanyName,
+	SignInTitle,
 	Container,
 	Header,
 	Footer,
-	SignInTitle,
-	FooterWrapper,
-	AnimationContainer,
 	Anim_1,
 	Anim_2,
 	Anim_3,
@@ -31,32 +33,37 @@ import {
 
 export function SignIn() {
 	const { signInWithGoogle } = useAuth();
+	const nav = useNavigation();
 	const theme = useTheme();
 
 	const [isLoading, setIsLoading] = useState(false);
 
 	async function handleSignInWithGoogle() {
+		setIsLoading(true);
+
 		try {
-			setIsLoading(true);
 			await signInWithGoogle();
 		} catch (error) {
 			console.error("Erro ao autenticar com Google", error);
+
 			Alert.alert("Erro ao autenticar com Google!");
-		} finally {
-			setIsLoading(false);
 		}
+
+		setIsLoading(false);
 	}
 
-	// async function handleSignInWithEmail() {
-	// 	try {
-	// 		setIsLoading(true);
-	// 		await signInWithEmail();
-	// 	} catch (error) {
-	// 		console.error("Erro ao autenticar com e-mail:", error);
-	// 		Alert.alert("Erro ao autenticar com e-mail!");
-	// 	} finally {
-	// 		setIsLoading(false);
-	// 	}
+	async function handleSignInWithEmail() {
+		nav.navigate("SignInWithEmail");
+	}
+
+	// try {
+	// 	setIsLoading(true);
+	// 	await signInWithEmail();
+	// } catch (error) {
+	// 	console.error("Erro ao autenticar com e-mail:", error);
+	// 	Alert.alert("Erro ao autenticar com e-mail!");
+	// } finally {
+	// 	setIsLoading(false);
 	// }
 
 	return (
@@ -83,42 +90,54 @@ export function SignIn() {
 			</AnimationContainer>
 
 			<Header>
-				<SignInSvg width={300} />
+				<Image
+					onError={(err) => console.log(err.nativeEvent.error)}
+					source={require("../../assets/icons/imgs/logo.png")}
+					style={{
+						position: "relative",
+						width: 55,
+						height: 55,
+					}}
+				/>
+				<CompanyName>GoReview</CompanyName>
+				<CompanyDescription></CompanyDescription>
+
+				<SignInSvg width={300} height={300} style={{ marginTop: 20 }} />
 			</Header>
 
 			<Footer>
 				<SignInTitle>Faça seu login ou registre-se abaixo</SignInTitle>
 
 				<FooterWrapper>
-					{/* <SingInSocialButton
-						title="Entrar com e-mail"
-						color={theme.colors.email_button}
-						textColor={"black"}
-						svg={EmailSvg}
-						svgWidth={RFValue(20)}
-						svgHeight={RFValue(20)}
+					<SingInSocialButton
 						onPress={() => {
 							handleSignInWithEmail();
 						}}
-					/> */}
-					<SingInSocialButton
-						title="Entrar com Google"
-						color={theme.colors.google_button}
-						textColor={"white"}
-						svg={GoogleLogoSvg}
-						svgWidth={RFValue(20)}
+						color={theme.colors.email_button}
+						title="Entrar com e-mail"
 						svgHeight={RFValue(20)}
+						svgWidth={RFValue(20)}
+						textColor={"black"}
+						svg={EmailSvg}
+					/>
+					<SingInSocialButton
 						onPress={() => {
 							handleSignInWithGoogle();
 						}}
+						color={theme.colors.google_button}
+						title="Entrar com Google"
+						svgHeight={RFValue(20)}
+						svgWidth={RFValue(20)}
+						textColor={"white"}
+						svg={GoogleLogoSvg}
 					/>
 				</FooterWrapper>
 
 				{isLoading && (
 					<ActivityIndicator
 						color={theme.colors.main}
-						size="small"
 						style={{ marginTop: 20 }}
+						size="small"
 					/>
 				)}
 			</Footer>

@@ -13,11 +13,11 @@ export function ChallengeList({ data, ...rest }: Props) {
 	return (
 		<Container>
 			<List
-				data={data}
-				keyExtractor={(item) => item.id}
 				renderItem={({ item }) => <ChallengeCard data={item} />}
 				showsVerticalScrollIndicator={false}
+				keyExtractor={(item) => item.id}
 				fadingEdgeLength={20}
+				data={data}
 				{...rest}
 			/>
 		</Container>

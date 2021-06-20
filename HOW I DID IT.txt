@@ -29,3 +29,5 @@
 11º) To have forms quick and easy: `yarn add react-hook-form`
 
 12º) To have google sign in: I tried following the docs
+
+13º) To be able to pick a photo from your phone: `expo install expo-image-picker`

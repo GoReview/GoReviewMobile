@@ -1,57 +1,121 @@
-import React, { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import { StatusBar } from "react-native";
+import React, { useCallback, useState } from "react";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { StatusBar, ActivityIndicator } from "react-native";
 import { useTheme } from "styled-components";
-import { useAuth } from "../../hooks/auth";
 import { Feather } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAuth } from "../../hooks/auth";
 
 import { ClassCardProps } from "../../components/ClassCard";
-import { userStorageKey } from "../../hooks/utils";
+import { GoReviewAPI } from "../../api";
 import { ClassCard } from "../../components/ClassCard";
+import { Error } from "../ClassSearch/styles";
 
-import { Container, List, SearchClass, SearchButton } from "./styles";
+import {
+	CreateNewClassButtonContainer,
+	CreateNewClassButton,
+	SearchClassContainer,
+	ErrorContainer,
+	SearchButton,
+	Container,
+	Header,
+	List,
+} from "./styles";
 
 export function Home() {
-	const clearAllTransactionData = false;
-	const { user } = useAuth();
 	const nav = useNavigation();
+	const { user } = useAuth();
 	const theme = useTheme();
 
 	const [classes, setClasses] = useState(debugData as ClassCardProps[]);
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState("");
 
 	function handleGo2ClassSearch() {
 		nav.navigate("ClassSearch");
 	}
 
-	if (clearAllTransactionData) clearDataFromAsyncStorage(userStorageKey);
+	function handleGo2CreateNewClassRoom() {
+		nav.navigate("CreateNewClassRoom");
+	}
+
+	useFocusEffect(
+		useCallback(() => {
+			let isMounted = true;
+
+			(async function getUserClasses() {
+				setIsLoading(true);
+				setError("");
+				console.log("[LOG] Auth:", GoReviewAPI.defaults.headers.authorization);
+
+				try {
+					const res = await GoReviewAPI({
+						url: "turmas/user" + "/" + user!.id,
+						method: "get",
+						headers: {},
+					});
+
+					setClasses(res.data);
+					setError("");
+				} catch (error) {
+					console.error("[ERROR] in Home", error.request._response);
+					console.log("\n", JSON.stringify(error));
+
+					setError(JSON.parse(error.request._response).message);
+				} finally {
+					console.log("\n[LOG] Classes:", classes);
+					setIsLoading(false);
+				}
+			})();
+
+			return () => {
+				isMounted = false;
+			};
+		}, [])
+	);
 
 	return (
 		<Container>
 			<StatusBar
-				barStyle="dark-content"
 				backgroundColor="transparent"
+				barStyle="dark-content"
 				translucent
 			/>
 
-			<SearchClass>
-				<SearchButton onPress={() => handleGo2ClassSearch()}>
-					<Feather name="search" size={24} />
-				</SearchButton>
-			</SearchClass>
+			<Header>
+				{user!.group === "professor" && (
+					<CreateNewClassButtonContainer>
+						<CreateNewClassButton onPress={handleGo2CreateNewClassRoom}>
+							<Feather name="plus-circle" size={24} />
+						</CreateNewClassButton>
+					</CreateNewClassButtonContainer>
+				)}
+
+				<SearchClassContainer>
+					<SearchButton onPress={() => handleGo2ClassSearch()}>
+						<Feather name="search" size={24} />
+					</SearchButton>
+				</SearchClassContainer>
+			</Header>
+
+			{isLoading && (
+				<ActivityIndicator
+					color={theme.colors.main}
+					style={{ marginTop: 20 }}
+					size="small"
+				/>
+			)}
+
+			<ErrorContainer>
+				<Error>{error}</Error>
+			</ErrorContainer>
 
 			<List
-				data={classes}
-				keyExtractor={(item) => item.id}
 				renderItem={({ item }) => <ClassCard data={item} />}
+				keyExtractor={(item) => item.id}
+				data={classes}
 			/>
 		</Container>
 	);
-}
-
-async function clearDataFromAsyncStorage(Key: string) {
-	const data = await AsyncStorage.removeItem(Key);
-	console.log("Cleared transaction data:", data);
 }
 
 const debugData: ClassCardProps[] = [

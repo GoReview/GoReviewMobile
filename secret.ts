@@ -1,0 +1,26 @@
+import * as Google from "expo-google-app-auth";
+
+export const googleCredentials = {
+	androidClientId:
+		"668377415302-64u9jftqmm65qi6nk0ane25m9ck2oi24.apps.googleusercontent.com",
+	scopes: ["profile", "email"],
+};
+
+export const debugGabrielGoogleData: Google.LogInResult = {
+	accessToken:
+		"ya29.a0AfH6SMA2YRM0HrFv7harD1wDCKGO_MVl5y8tGqONVJ0gIR32UB1QM1SIavPf96ZLr1lJg5iqPIsUX9bjvTSCqBN98TP87JprhqKiGMALJIHHwUXr9LhqXG0twIm1XBP4-rEH5Hjb3ri_Qa5Zj3VgVCXdmvGs",
+	idToken: "QU1oYm9iQkFGTUd5L01rcVRrY2p4dz09",
+		// "eyJhbGciOiJSUzI1NiIsImtpZCI6IjE5ZmUyYTdiNjc5NTIzOTYwNmNhMGE3NTA3OTRhN2JkOWZkOTU5NjEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI2NjgzNzc0MTUzMDItNjR1OWpmdHFtbTY1cWk2bmswYW5lMjVtOWNrMm9pMjQuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI2NjgzNzc0MTUzMDItNjR1OWpmdHFtbTY1cWk2bmswYW5lMjVtOWNrMm9pMjQuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDk2MDk3MzUzNjk2MTQ0NzI2OTIiLCJlbWFpbCI6ImdhYnJpZWw5MjU0ODZAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiJWMVVRLUNaWjRFN3dOamtCUGZqakdRIiwibmFtZSI6IkdhYnJpZWwgQWx2ZXMgQ3VuaGEiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2hFTVN6OEVfWnVrUjhWQVM2aVhCUzVGWS1NMzZaazFKMTE1M0pnRGc9czk2LWMiLCJnaXZlbl9uYW1lIjoiR2FicmllbCIsImZhbWlseV9uYW1lIjoiQWx2ZXMgQ3VuaGEiLCJsb2NhbGUiOiJwdC1CUiIsImlhdCI6MTYyNDA1MzU1NSwiZXhwIjoxNjI0MDU3MTU1fQ.a3flZ9aPJYv2HQ00xMTGBOlswco3y3eW1wD1WUm6xEmRNEuOKrCbxQW85l3__Dm24gHxsbwbPzym2fe-fhVtMGqjwe1GWtRzDoFCxCfaCbNfaqtllGWsf_0YxoEYCdPmIvzP5rHcOAyeiN4ro-V7orz8DCqKbUg2IBnKhsUVXLWGb9t3lrZxWMNIoOuWWHjfYGLwf4r_IS1TyzA29jhNwjCU7_BCBNUuHIU2hdOPWIJCQ_icLiyo9nqn2b3RK6sdveXQu3Fwt4euLVVL6M7d7GBemFdu62EyjdKfrsjrtGFZpl7HE3nYn2Y0mgVD-Za8hqNNcRWlWJwrf2dqy1F4Mw",
+	refreshToken:
+		"1//0hKCeyqY2RPjXCgYIARAAGBESNwF-L9Irq6vJmENh2p-R34eFaAw3b4Obkp8eLXI6GqEfE-X-boaeOoPRoKz3LvIwULlN0H7b7i0",
+	type: "success",
+	user: {
+		email: "gabriel925486@gmail.com",
+		familyName: "Alves Cunha",
+		givenName: "Gabriel",
+		id: "109609735369614472692",
+		name: "Gabriel Alves Cunha",
+		photoUrl:
+			"https://lh3.googleusercontent.com/a-/AOh14GhEMSz8E_ZukR8VAS6iXBS5FY-M36Zk1J1153JgDg=s96-c",
+	},
+};

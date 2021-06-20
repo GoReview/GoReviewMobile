@@ -9,11 +9,12 @@ import {
 	TouchableWithoutFeedback,
 } from "react-native";
 
-import { ClassCardProps } from "../../components/ClassCard";
+import { ClassCard, ClassCardProps } from "../../components/ClassCard";
+import { GoReviewAPI } from "../../api";
 import { BackButton } from "../../components/BackButton";
 
 import { Container, Header, BackButtonContainer, Error } from "./styles";
-import { GoReviewAPI } from "../../api";
+import { List } from "../Home/styles";
 
 export function ClassSearch() {
 	const nav = useNavigation();
@@ -26,13 +27,14 @@ export function ClassSearch() {
 	const [isLoading, setIsLoading] = useState(false);
 
 	async function searchForClassWithID(id: string) {
+		setReturnFromClassSearch([]);
+		setClassSearchError("");
 		setIsLoading(true);
 
 		const axiosConf: AxiosRequestConfig = {
-			method: "get",
 			url: "turmas/" + id,
+			method: "get",
 			headers: {},
-			data: "",
 		};
 
 		try {
@@ -46,19 +48,17 @@ export function ClassSearch() {
 			} else if (error.message === error400) {
 				setClassSearchError("O ID está errado!");
 			} else {
-				console.log("Another error!");
-
 				setClassSearchError(error.message);
+
+				console.log("Another error!");
 			}
 
-			setReturnFromClassSearch([]);
-			setIsLoading(false);
-			console.log("[ERROR] from searchForClassWithID:", JSON.stringify(error));
-
-			return;
+			console.error(
+				"[ERROR] from searchForClassWithID:",
+				JSON.parse(error.request._response).message
+			);
 		}
 
-		setClassSearchError("");
 		setIsLoading(false);
 	}
 
@@ -85,26 +85,32 @@ export function ClassSearch() {
 								borderRadius: 5,
 								borderColor: theme.colors.text,
 							}}
-							autoFocus
-							autoCapitalize="none"
-							autoCorrect={false}
-							placeholder="Digite o ID da turma e tecle 'Enter'"
-							placeholderTextColor={theme.colors.text}
 							onSubmitEditing={(event) =>
 								searchForClassWithID(event.nativeEvent.text)
 							}
+							placeholder="Digite o ID da turma e tecle 'Enter'"
+							placeholderTextColor={theme.colors.text}
+							autoCapitalize="none"
+							autoCorrect={false}
+							autoFocus
 						/>
-
-						{isLoading && (
-							<ActivityIndicator
-								color={theme.colors.shape}
-								size="small"
-								style={{ marginTop: 20 }}
-							/>
-						)}
 					</Header>
 
+					{isLoading && (
+						<ActivityIndicator
+							color={theme.colors.main}
+							style={{ marginTop: 20 }}
+							size="small"
+						/>
+					)}
+
 					<Error>{classSearchError}</Error>
+
+					<List
+						renderItem={({ item }) => <ClassCard data={item} />}
+						keyExtractor={(item) => item.id}
+						data={returnFromClassSearch}
+					/>
 				</Container>
 			</TouchableWithoutFeedback>
 		</KeyboardAvoidingView>

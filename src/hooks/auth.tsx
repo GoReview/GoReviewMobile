@@ -3,28 +3,28 @@ import { Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Google from "expo-google-app-auth";
 
-import { googleCredentials } from "../../secret";
+import { debugGabrielGoogleData, googleCredentials } from "../../secret";
 import { awaitResOrErr } from "../../await";
+import { GoReviewAPI } from "../api";
 import {
-	askUserIfIsStudentOrTeacher,
-	debugGabrielGoogleData,
-	debugUser,
-	// loginOrCreateUserWithEmail,
 	loginOrCreateUserWithGoogle,
+	askUserIfIsStudentOrTeacher,
+	loginOrCreateUserWithEmail,
 	userStorageKey,
 } from "./utils";
 import {
-	AuthContextData,
+	UserToBeVerifiedOnAxios,
 	AuthProviderProps,
-	Group,
+	AuthContextData,
 	StoragedUser,
+	AxiosConfig,
 } from "./types";
 
 const AuthContext = createContext({} as AuthContextData);
 
 function AuthProvider({ children }: AuthProviderProps) {
-	const [user, setUser] = useState<StoragedUser | undefined>(undefined);
 	const [isLoadingStoragedUser, setIsLoadingStoragedUser] = useState(true);
+	const [user, setUser] = useState<StoragedUser | undefined>(undefined);
 
 	async function storeUser(user: StoragedUser) {
 		const [, error] = await awaitResOrErr(
@@ -35,48 +35,59 @@ function AuthProvider({ children }: AuthProviderProps) {
 
 	async function signInWithGoogle() {
 		const group = await askUserIfIsStudentOrTeacher();
-		console.log("group:", group);
 
 		try {
-			// const googleLoginResult = await Google.logInAsync(googleCredentials);
-			// console.log("[LOG] Result google login:", googleLoginResult);
+			const googleLoginResult = await Google.logInAsync(googleCredentials);
+			console.log("[LOG] Result google login:", googleLoginResult);
 
-			if (debugGabrielGoogleData.type === "success") {
-				// todo: change this
-				storeUser(
-					await loginOrCreateUserWithGoogle(debugGabrielGoogleData, group)
-				);
+			if (googleLoginResult.type === "success") {
+				storeUser(await loginOrCreateUserWithGoogle(googleLoginResult, group));
 			}
+		} catch (error) {
+			console.error(
+				"[ERROR] in auth",
+				JSON.parse(error.request._response).message
+			);
+			throw new Error(error);
+		}
+	}
+
+	async function changePassword() {
+		try {
+			const res = await GoReviewAPI({
+				headers: {},
+				method: "post",
+				url: "usuarios/reset",
+				data: { email: user!.email },
+			} as AxiosConfig);
+
+			console.log("\n[LOG]", res.data);
 		} catch (error) {
 			throw new Error(error);
 		}
 	}
 
-	// async function signInWithEmail(user_data: UserToBeVerifiedOnAxios) {
-	// 	const group: Group = askUserIfIsStudentOrTeacher();
+	async function signInWithEmail(user_data: UserToBeVerifiedOnAxios) {
+		const group = await askUserIfIsStudentOrTeacher();
 
-	// 	try {
-	// 		storeUser(await loginOrCreateUserWithEmail(user_data, group));
-	// 	} catch (error) {
-	// 		throw new Error(error);
-	// 	}
-	// }
+		try {
+			storeUser(await loginOrCreateUserWithEmail(user_data, group));
+		} catch (error) {
+			throw new Error("\n[ERROR] signInWithEmail:" + error);
+		}
+	}
 
 	async function signOut() {
-		await awaitResOrErr(AsyncStorage.removeItem(userStorageKey)).catch(
-			(error) => {
-				if (error.response) {
-					console.log("Error.response:", error.response);
-				} else if (error.request) {
-					console.log("Error.request:", error.request);
-				} else {
-					console.log("Error.message:", error.message);
-				}
-				console.log("Error.config:", error.config);
-				console.error(error);
-				Alert.alert("Erro:", "Falha ao remover usuário do dispositivo!");
-			}
-		);
+		await AsyncStorage.removeItem(userStorageKey).catch((error) => {
+			if (error.response)
+				console.log("\nError.response in signOut:", error.response);
+			else if (error.request)
+				console.log("\nError.request in signOut:", error.request);
+			else if (error.message)
+				console.log("\nError.message in signOut:", error.message);
+			console.error(error);
+			Alert.alert("\nErro:", "Falha ao remover usuário do dispositivo!");
+		});
 		setUser(undefined);
 	}
 
@@ -98,11 +109,12 @@ function AuthProvider({ children }: AuthProviderProps) {
 	return (
 		<AuthContext.Provider
 			value={{
-				user,
 				isLoadingStoragedUser,
 				signInWithGoogle,
-				// signInWithEmail,
+				signInWithEmail,
+				changePassword,
 				signOut,
+				user,
 			}}
 		>
 			{children}

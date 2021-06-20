@@ -18,8 +18,6 @@ import { AuthProvider, useAuth } from "./src/hooks/auth";
 import { Routes } from "./src/routes";
 
 import theme from "./src/global/styles/theme";
-import { Home } from "./src/screens/Home";
-import { ChallengesToCorrect } from "./src/screens/ChallengesToCorrect";
 
 export default function App() {
 	const [areFontsLoaded, error] = useFonts({
@@ -46,14 +44,13 @@ export default function App() {
 	return (
 		<ThemeProvider theme={theme}>
 			<StatusBar
-				barStyle="light-content"
 				backgroundColor={theme.colors.header}
+				barStyle="light-content"
 			/>
 
 			<AuthProvider>
 				<Routes />
 			</AuthProvider>
-			{/* <ChallengesToCorrect /> */}
 		</ThemeProvider>
 	);
 }

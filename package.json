@@ -22,6 +22,7 @@
     "expo-blur": "~9.0.3",
     "expo-font": "~9.1.0",
     "expo-google-app-auth": "^8.1.7",
+    "expo-image-picker": "~10.1.4",
     "expo-linear-gradient": "~9.1.0",
     "expo-random": "~11.1.2",
     "expo-splash-screen": "~0.10.2",

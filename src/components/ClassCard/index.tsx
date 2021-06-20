@@ -5,8 +5,8 @@ import { ThreeDotsOptionButton } from "../ThreeDotsOptionButton";
 import { Container, Title, TitleContainer, Clickable } from "./styles";
 
 export interface ClassCardProps {
-	id: string;
 	title: string;
+	id: string;
 }
 
 interface Props extends TouchableOpacityProps {

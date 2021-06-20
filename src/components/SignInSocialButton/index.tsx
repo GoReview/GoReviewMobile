@@ -5,21 +5,21 @@ import { SvgProps } from "react-native-svg";
 import { Button, IconContainer, Text } from "./styles";
 
 interface Props extends RectButtonProps {
-	title: string;
-	color: string;
-	textColor: string;
 	svg: React.FC<SvgProps>;
-	svgWidth: number;
+	textColor: string;
 	svgHeight: number;
+	svgWidth: number;
+	color: string;
+	title: string;
 }
 
 export function SingInSocialButton({
-	title,
-	color,
 	textColor,
 	svg: Svg,
 	svgWidth,
 	svgHeight,
+	title,
+	color,
 	...rest
 }: Props) {
 	return (
@@ -27,6 +27,7 @@ export function SingInSocialButton({
 			<IconContainer color={color}>
 				<Svg width={svgWidth} height={svgHeight} />
 			</IconContainer>
+
 			<Text textColor={textColor}>{title}</Text>
 		</Button>
 	);
