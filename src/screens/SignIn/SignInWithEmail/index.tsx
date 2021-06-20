@@ -18,6 +18,7 @@ export function SignInWithEmail() {
 	const { signInWithEmail } = useAuth();
 	const nav = useNavigation();
 
+	const [isLoading, setIsLoading] = useState(false);
 	const [password, setPassword] = useState("");
 	const [email, setEmail] = useState("");
 	const [name, setName] = useState("");
@@ -27,11 +28,15 @@ export function SignInWithEmail() {
 	}
 
 	async function handleSignIn() {
+		setIsLoading(true);
+
 		try {
 			await signInWithEmail({ email, password, name });
 		} catch (error) {
 			console.error(error);
 		}
+
+		setIsLoading(false);
 	}
 
 	return (
@@ -42,7 +47,7 @@ export function SignInWithEmail() {
 						<BackButton onPress={handleGoBack2LoginScreen} />
 					</Header>
 
-					<Title>Crie sua{"\n"}conta</Title>
+					<Title>Crie sua{"\n"}conta ou faça login</Title>
 					<SubTitle>
 						Faça seu cadastro{"\n"}
 						rápido e fácil
@@ -56,6 +61,7 @@ export function SignInWithEmail() {
 							onChangeText={setEmail}
 							placeholder="Email"
 							iconName="mail"
+							autoCapitalize="none"
 						/>
 						<PasswordInput
 							onChangeText={setPassword}
@@ -65,7 +71,7 @@ export function SignInWithEmail() {
 						/>
 					</Form>
 
-					<Button title="Entrar" onPress={handleSignIn} />
+					<Button enabled={!isLoading} title="Entrar" onPress={handleSignIn} />
 				</Container>
 			</TouchableWithoutFeedback>
 		</KeyboardAvoidingView>

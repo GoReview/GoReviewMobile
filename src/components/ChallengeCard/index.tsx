@@ -14,12 +14,12 @@ import {
 } from "./styles";
 
 export interface ChallengeProps {
-	creationDate: string;
-	deliverDate: string;
-	description: string;
-	classTitle: string;
-	classId: string;
-	title: string;
+	data_revisao: string;
+	data_envio: string;
+	descricao: string;
+	turma_id: string;
+	envio: string[];
+	titulo: string;
 	id: string;
 }
 
@@ -31,17 +31,17 @@ export function ChallengeCard({ data }: Props) {
 	return (
 		<Container>
 			<Header>
-				<Title textColor="black">{data.title}</Title>
-				<ClassTitle>{data.classTitle}</ClassTitle>
+				<Title textColor="black">{data.titulo}</Title>
+				{/* <ClassTitle>{data.classTitle}</ClassTitle> */}
 			</Header>
 
 			<FooterContainer>
 				<Footer>
-					<Description>{data.description}</Description>
+					<Description>{data.descricao}</Description>
 
 					<FooterWrapper>
-						<Dates>Criado em: {data.creationDate}</Dates>
-						<Dates>Entrega até: {data.deliverDate}</Dates>
+						<Dates>Enviado em: {data.data_envio}</Dates>
+						<Dates>Última revisão em: {data.data_revisao}</Dates>
 					</FooterWrapper>
 				</Footer>
 			</FooterContainer>

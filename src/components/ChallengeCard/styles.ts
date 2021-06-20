@@ -5,10 +5,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 
 export const Container = styled.View``;
 
-export const Header = styled(BlurView).attrs({
-	tint: "light",
-	intensity: 100,
-})`
+export const Header = styled.View`
 	flex-direction: row;
 	height: ${RFValue(80)}px;
 
@@ -17,6 +14,8 @@ export const Header = styled(BlurView).attrs({
 	justify-content: space-between;
 	align-items: center;
 
+	background-color: ${({ theme }) => theme.colors.shape};
+
 	border-top-left-radius: 15px;
 	border-top-right-radius: 15px;
 `;
@@ -24,7 +23,7 @@ export const Header = styled(BlurView).attrs({
 export const FooterContainer = styled.View`
 	flex: 1;
 
-	background-color: ${({ theme }) => theme.colors.main};
+	background-color: ${({ theme }) => theme.colors.background_secondary};
 
 	border-bottom-right-radius: ${RFValue(10)}px;
 	border-bottom-left-radius: ${RFValue(10)}px;

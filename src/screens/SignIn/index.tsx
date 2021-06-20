@@ -131,15 +131,15 @@ export function SignIn() {
 						textColor={"white"}
 						svg={GoogleLogoSvg}
 					/>
-				</FooterWrapper>
 
-				{isLoading && (
-					<ActivityIndicator
-						color={theme.colors.main}
-						style={{ marginTop: 20 }}
-						size="small"
-					/>
-				)}
+					{isLoading && (
+						<ActivityIndicator
+							color={theme.colors.main}
+							style={{ marginTop: 20 }}
+							size="small"
+						/>
+					)}
+				</FooterWrapper>
 			</Footer>
 		</Container>
 	);

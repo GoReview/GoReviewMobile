@@ -98,8 +98,10 @@ function AuthProvider({ children }: AuthProviderProps) {
 			if (storagedUser) {
 				const loggedUser: StoragedUser = JSON.parse(storagedUser);
 				console.log("Got storaged user:", loggedUser);
-				setUser(loggedUser);
+				GoReviewAPI.defaults.headers.authorization = `Bearer ${loggedUser.token}`; // authorization token to api
+
 				setIsLoadingStoragedUser(false);
+				setUser(loggedUser);
 			}
 
 			setIsLoadingStoragedUser(false);

@@ -26,7 +26,7 @@ export function Home() {
 	const { user } = useAuth();
 	const theme = useTheme();
 
-	const [classes, setClasses] = useState(debugData as ClassCardProps[]);
+	const [classes, setClasses] = useState([] as ClassCardProps[]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState("");
 
@@ -57,8 +57,10 @@ export function Home() {
 					setClasses(res.data);
 					setError("");
 				} catch (error) {
-					console.error("[ERROR] in Home", error.request._response);
-					console.log("\n", JSON.stringify(error));
+					console.error(
+						"[ERROR] in Home",
+						JSON.parse(error.request._response).message
+					);
 
 					setError(JSON.parse(error.request._response).message);
 				} finally {

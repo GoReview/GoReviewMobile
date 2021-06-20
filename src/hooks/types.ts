@@ -5,6 +5,7 @@ export type Group = "professor" | "estudent";
 export interface StoragedUser {
 	avatar_url: string;
 	email: string;
+	token: string;
 	group: Group;
 	name: string;
 	id: string;

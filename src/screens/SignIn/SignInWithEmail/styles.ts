@@ -24,7 +24,7 @@ export const Title = styled.Text`
 
 	color: ${({ theme }) => theme.colors.title};
 
-	margin-top: 60px;
+	margin-top: 10px;
 	margin-bottom: 16px;
 `;
 
